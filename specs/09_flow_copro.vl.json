@@ -1,0 +1,260 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Flow map: official co-productions between Australia and partner countries since 1986. Line width and symbol size = number of titles.",
+  "width": "container",
+  "height": 420,
+  "projection": {
+    "type": "equalEarth",
+    "rotate": [
+      -150,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#16191c"
+      }
+    },
+    {
+      "data": {
+        "url": "data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "data/copro_partners.csv",
+              "format": {
+                "type": "csv",
+                "parse": {
+                  "titles": "number",
+                  "lat": "number",
+                  "lon": "number",
+                  "iso_n3": "number"
+                }
+              }
+            },
+            "key": "iso_n3",
+            "fields": [
+              "titles",
+              "country"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#1a1a19",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "fill": {
+          "condition": [
+            {
+              "test": "datum.id == 36",
+              "value": "#C08420"
+            },
+            {
+              "test": "isValid(datum.titles)",
+              "value": "#5a4a3a"
+            }
+          ],
+          "value": "#2e2d29"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/copro_partners.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "titles": "number",
+            "lat": "number",
+            "lon": "number",
+            "iso_n3": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "149.13",
+          "as": "au_lon"
+        },
+        {
+          "calculate": "-35.28",
+          "as": "au_lat"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#E2586B",
+        "opacity": 0.7,
+        "strokeCap": "round"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "au_lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "au_lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "lon"
+        },
+        "latitude2": {
+          "field": "lat"
+        },
+        "strokeWidth": {
+          "field": "titles",
+          "type": "quantitative",
+          "scale": {
+            "range": [
+              1,
+              9
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "title": "Partner"
+          },
+          {
+            "field": "titles",
+            "title": "Co-productions since 1986"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/copro_partners.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "titles": "number",
+            "lat": "number",
+            "lon": "number",
+            "iso_n3": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "color": "#E2586B",
+        "opacity": 1,
+        "stroke": "#1a1a19",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "titles",
+          "type": "quantitative",
+          "scale": {
+            "range": [
+              40,
+              500
+            ]
+          },
+          "title": "Titles",
+          "legend": {
+            "orient": "bottom-left",
+            "values": [
+              5,
+              25,
+              75
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "title": "Partner"
+          },
+          {
+            "field": "titles",
+            "title": "Co-productions since 1986"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": -62,
+            "lat": 52,
+            "label": "Canada 79",
+            "align": "center"
+          },
+          {
+            "lon": 174.8,
+            "lat": -46,
+            "label": "New Zealand 27",
+            "align": "center"
+          },
+          {
+            "lon": 118,
+            "lat": 32,
+            "label": "China 7",
+            "align": "center"
+          },
+          {
+            "lon": 103.8,
+            "lat": -3,
+            "label": "Singapore 7",
+            "align": "center"
+          },
+          {
+            "lon": 40,
+            "lat": 66,
+            "label": "Europe: UK 54 \u00b7 France 35 \u00b7 Germany 13 \u00b7 Ireland 12 \u00b7 Italy 4",
+            "align": "center"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#e8e4d8"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ]
+}

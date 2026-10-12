@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Made in Australia: The Business of Our Screen Stories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.21.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0"></script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Made in Australia</h1>
+    <p class="dek">Hollywood blockbusters, homegrown dramas and streaming series spent a record
+      <strong>$2.7&nbsp;billion</strong> making screen stories here last year. Where did that money go,
+      who paid for it, and where do the cameras actually roll?</p>
+    <p class="byline">By <span class="todo-inline">Ewan Chong</span> · FIT3179 Data Visualisation 2 · October 2026</p>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ SCENE 1 ============ -->
+<section class="scene">
+  <div class="wrap grid-2">
+    <div class="copy">
+      <p class="slug">SCENE 1 — THE MONEY</p>
+      <h2>Most of the money is now foreign</h2>
+      <p>In 2024/25, drama production in Australia (feature films, TV and streaming series) hit
+        <strong>$2.7&nbsp;billion</strong>, the highest figure Screen Australia has ever recorded.</p>
+      <p>But for every $100 spent, about <strong class="c-intl">$60 came from international productions</strong>:
+        overseas studios that shoot here or do their visual effects here.
+        Australian stories made up the other $40.</p>
+      <p class="note">Each square = $1 out of every $100 spent. Hover for dollar amounts.</p>
+    </div>
+    <figure class="chart" id="vis-waffle"></figure>
+  </div>
+</section>
+
+<!-- ============ SCENE 2 ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 2 — BOOM, BUST, BOOM</p>
+    <h2>A rollercoaster decade</h2>
+    <p class="lede">Spending has swung wildly. Australia's early COVID control made it a "safe haven" for
+      Hollywood in 2020/21. Then the 2023 US writers' and actors' strikes stopped many productions, and
+      2023/24 dropped to $1.7&nbsp;billion. International shoots drove the record rebound in 2024/25.</p>
+    <figure class="chart wide" id="vis-category"></figure>
+    <p class="source">Source: Screen Australia, Drama Reports 2022/23, 2023/24, 2024/25. Spend is counted in the financial year production started.
+      2024/25 international figure = total minus Australian titles.</p>
+  </div>
+</section>
+
+<!-- ============ SCENE 3 ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 3 — THE STATE RACE</p>
+    <h2>Queensland steals the crown</h2>
+    <p class="lede">For years, New South Wales was the undisputed home of Australian screen production. In 2024/25,
+      Queensland overtook it for the first time in this period, thanks to blockbusters filmed at the Gold Coast's studios.</p>
+    <div class="grid-2 align-start">
+      <figure class="chart" id="vis-heatmap">
+        <figcaption>Production spend ($ millions) by state and year</figcaption>
+      </figure>
+      <figure class="chart" id="vis-bump">
+        <figcaption>Ranking by spend each year. Hover a line to follow a state.</figcaption>
+      </figure>
+    </div>
+    <div class="grid-2 align-center">
+      <div class="copy">
+        <h3>A one-year swing</h3>
+        <p>NSW's share of national spending fell from about half to under a third in a single year.
+          Queensland's doubled. Big international shoots move from state to state,
+          so one or two films can reshape the whole map.</p>
+        <p class="note">ACT, NT and Tasmania are reported together by Screen Australia to protect confidentiality.</p>
+      </div>
+      <figure class="chart" id="vis-slope"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCENE 4 ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 4 — ON THE MAP</p>
+    <h2>Per person, Queensland is the screen state</h2>
+    <p class="lede">Dividing each state's production spend by its population shows how much the industry matters locally.
+      Queensland's $925&nbsp;million works out to about <strong>$161 for every resident</strong>, well ahead of Victoria and NSW.</p>
+    <div class="grid-2 align-start">
+      <figure class="chart" id="vis-choropleth">
+        <figcaption>2024/25 production spend per resident. *ACT, NT &amp; Tas are reported as one group.</figcaption>
+      </figure>
+      <figure class="chart" id="vis-symbols">
+        <figcaption>Total spend by state (circle at capital city). Drag the slider to replay 2018–2024.</figcaption>
+      </figure>
+    </div>
+    <p class="source">Sources: Screen Australia Drama Reports; Australian Bureau of Statistics, National, state and territory population (March 2026).</p>
+  </div>
+</section>
+
+<!-- ============ SCENE 5 ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 5 — WHO PAYS?</p>
+    <h2>Taxpayers fund a third or more of our stories</h2>
+    
+    <figure class="chart wide" id="vis-marimekko"></figure>
+    <p class="source">Source: Screen Australia, Drama Report 2024/25 Key Findings.</p>
+  </div>
+</section>
+
+<!-- ============ SCENE 6 ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 6 — GOING GLOBAL</p>
+    <h2>Our co-production partners</h2>
+    <p class="lede">An <strong>official co-production</strong> is a film or series made under a treaty between Australia and another country,
+      so it counts as "local" in both. Since 1986, 230 titles have been made this way.
+      Most partners are Commonwealth countries or in Europe.</p>
+    <figure class="chart wide" id="vis-flow"></figure>
+    <p class="source">Source: Screen Australia, Co-production trends (as at 30 June 2026).</p>
+  </div>
+</section>
+
+
+<!-- ============ SCENE 7 (TO DO) ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 7 — THE AUDIENCE</p>
+    <h2>Do Australians watch Australian films?</h2>
+    <div class="todo">
+      <strong>TO DO (draft)</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREDITS ============ -->
+<footer class="credits">
+  <div class="wrap">
+    <p class="slug">Sources</p>
+    <h3></h3>
+    <ul>
+      <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/getmedia/9abdfbbc-ab6f-47cb-b809-26364ccd177d/Drama-Report-2024-25-Key-Findings.pdf">Drama Report 2024/25 Key Findings</a>,
+        <a href="https://www.screenaustralia.gov.au/getmedia/72cf0488-5782-4eda-9008-51be1524f8c9/SA-Drama-Report-2023_24-Key-Findings.pdf">2023/24 Key Findings</a>,
+        <a href="https://www.screenaustralia.gov.au/getmedia/22bfb310-9734-4845-9d03-a2c472a08a35/Screen-Australia-Drama-Report-2022-23.pdf">Drama Report 2022/23</a>.</li>
+      <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/co-production-program/co-production-trends/">Co-production trends</a>.</li>
+      <li>Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/latest-release">National, state and territory population, March 2026</a>.</li>
+      <li>Filming locations compiled from each film's Wikipedia article. Locations are approximate.</li>
+      <li>Boundaries: <a href="https://github.com/rowanhogan/australian-states">rowanhogan/australian-states</a> (simplified); world map: <a href="https://github.com/vega/vega-datasets">vega-datasets</a>.</li>
+    </ul>
+    <h3>About</h3>
+    <p>Created by Ewan Chong, October 2026, with Vega-Lite. Generative AI was used to help draft the page structure.
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

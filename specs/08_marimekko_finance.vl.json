@@ -1,0 +1,234 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Marimekko chart: who pays for Australian screen stories, 2024/25. Column width = total finance, segment height = share from each source.",
+  "width": "container",
+  "height": 340,
+  "data": {
+    "url": "data/finance_sources_2024_25.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "amount_m": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "amount_m",
+          "as": "format_total"
+        }
+      ],
+      "groupby": [
+        "format"
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "sum",
+          "field": "amount_m",
+          "as": "cum_in_format"
+        }
+      ],
+      "groupby": [
+        "format"
+      ],
+      "frame": [
+        null,
+        0
+      ],
+      "sort": [
+        {
+          "field": "source",
+          "order": "ascending"
+        }
+      ]
+    },
+    {
+      "calculate": "(datum.cum_in_format - datum.amount_m) / datum.format_total",
+      "as": "y0"
+    },
+    {
+      "calculate": "datum.cum_in_format / datum.format_total",
+      "as": "y1"
+    },
+    {
+      "calculate": "datum.amount_m / datum.format_total",
+      "as": "share"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "amount_m",
+          "as": "grand"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.format == 'Australian features' ? 0 : 406",
+      "as": "x0_raw"
+    },
+    {
+      "calculate": "datum.x0_raw / datum.grand",
+      "as": "x0"
+    },
+    {
+      "calculate": "(datum.x0_raw + datum.format_total) / datum.grand",
+      "as": "x1"
+    },
+    {
+      "calculate": "(datum.x0 + datum.x1) / 2",
+      "as": "xmid"
+    },
+    {
+      "calculate": "(datum.y0 + datum.y1) / 2",
+      "as": "ymid"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#1a1a19",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "x2": {
+          "field": "x1"
+        },
+        "y": {
+          "field": "y0",
+          "type": "quantitative",
+          "axis": {
+            "format": "%",
+            "title": "Share of finance",
+            "tickCount": 5
+          },
+          "scale": {
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "y2": {
+          "field": "y1"
+        },
+        "color": {
+          "field": "source",
+          "type": "nominal",
+          "title": "Source of money",
+          "scale": {
+            "domain": [
+              "Australian private investors",
+              "Australian screen industry",
+              "International investment",
+              "Other government funding",
+              "Producer Offset (federal tax rebate)"
+            ],
+            "range": [
+              "#6f6c64",
+              "#169C9A",
+              "#E2586B",
+              "#e0b45c",
+              "#C08420"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "labelLimit": 320,
+            "columns": 3
+          }
+        },
+        "tooltip": [
+          {
+            "field": "format",
+            "title": "Format"
+          },
+          {
+            "field": "source",
+            "title": "Source"
+          },
+          {
+            "field": "amount_m",
+            "title": "Amount ($m)",
+            "format": ",.0f"
+          },
+          {
+            "field": "share",
+            "title": "Share of format",
+            "format": ".0%"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.share >= 0.08"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#14130f"
+      },
+      "encoding": {
+        "x": {
+          "field": "xmid",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "ymid",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "share",
+          "type": "quantitative",
+          "format": ".0%"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.y1 == 1"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "dy": -10,
+        "color": "#e8e4d8"
+      },
+      "encoding": {
+        "x": {
+          "field": "xmid",
+          "type": "quantitative"
+        },
+        "y": {
+          "datum": 1
+        },
+        "text": {
+          "field": "format"
+        }
+      }
+    }
+  ]
+}

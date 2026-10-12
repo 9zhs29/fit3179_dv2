@@ -1,0 +1,254 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dot map of where iconic Australian films were shot, linked to a timeline. Drag across the timeline to filter the map by era; click a genre in the legend to isolate it.",
+  "data": {
+    "url": "data/filming_locations.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "year": "number",
+        "lat": "number",
+        "lon": "number"
+      }
+    }
+  },
+  "params": [
+    {
+      "name": "era",
+      "select": {
+        "type": "interval",
+        "encodings": [
+          "x"
+        ]
+      },
+      "views": [
+        "timeline"
+      ]
+    },
+    {
+      "name": "g",
+      "select": {
+        "type": "point",
+        "fields": [
+          "genre"
+        ]
+      },
+      "bind": "legend",
+      "views": [
+        "timeline"
+      ]
+    }
+  ],
+  "vconcat": [
+    {
+      "width": "container",
+      "height": 400,
+      "projection": {
+        "type": "mercator"
+      },
+      "layer": [
+        {
+          "data": {
+            "url": "data/states.geojson",
+            "format": {
+              "type": "json",
+              "property": "features"
+            }
+          },
+          "mark": {
+            "type": "geoshape",
+            "fill": "#2a2925",
+            "stroke": "#14130f",
+            "strokeWidth": 1.5
+          }
+        },
+        {
+          "mark": {
+            "type": "point",
+            "filled": true,
+            "size": 140,
+            "stroke": "#1a1a19",
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "longitude": {
+              "field": "lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "lat",
+              "type": "quantitative"
+            },
+            "color": {
+              "condition": {
+                "param": "era",
+                "field": "genre",
+                "type": "nominal",
+                "legend": null
+              },
+              "value": "#4a4842"
+            },
+            "opacity": {
+              "condition": {
+                "test": {
+                  "and": [
+                    {
+                      "param": "era"
+                    },
+                    {
+                      "param": "g"
+                    }
+                  ]
+                },
+                "value": 1
+              },
+              "value": 0.15
+            },
+            "tooltip": [
+              {
+                "field": "title",
+                "title": "Film"
+              },
+              {
+                "field": "year",
+                "title": "Year"
+              },
+              {
+                "field": "place",
+                "title": "Shot at"
+              },
+              {
+                "field": "state",
+                "title": "State"
+              },
+              {
+                "field": "genre",
+                "title": "Genre"
+              }
+            ],
+            "shape": {
+              "field": "genre",
+              "type": "nominal",
+              "legend": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "width": "container",
+      "height": 150,
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 110,
+        "stroke": "#1a1a19",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year of release (drag to select an era)",
+          "scale": {
+            "domain": [
+              1968,
+              2026
+            ]
+          },
+          "axis": {
+            "format": "d",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": null,
+          "sort": [
+            "NSW",
+            "VIC",
+            "QLD",
+            "SA",
+            "WA",
+            "TAS",
+            "NT"
+          ]
+        },
+        "color": {
+          "field": "genre",
+          "type": "nominal",
+          "title": "Genre (click)",
+          "scale": {
+            "domain": [
+              "Action & thriller",
+              "Comedy",
+              "Drama",
+              "Family",
+              "Mystery & horror"
+            ],
+            "range": [
+              "#E2586B",
+              "#C08420",
+              "#169C9A",
+              "#3D7FE6",
+              "#C266C4"
+            ]
+          },
+          "legend": {
+            "orient": "right"
+          }
+        },
+        "opacity": {
+          "condition": {
+            "param": "g",
+            "value": 1
+          },
+          "value": 0.15
+        },
+        "tooltip": [
+          {
+            "field": "title",
+            "title": "Film"
+          },
+          {
+            "field": "year",
+            "title": "Year"
+          },
+          {
+            "field": "place",
+            "title": "Shot at"
+          }
+        ],
+        "shape": {
+          "field": "genre",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Action & thriller",
+              "Comedy",
+              "Drama",
+              "Family",
+              "Mystery & horror"
+            ],
+            "range": [
+              "triangle-up",
+              "circle",
+              "square",
+              "diamond",
+              "cross"
+            ]
+          },
+          "title": "Genre (click)"
+        }
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "color": "shared",
+      "shape": "shared"
+    }
+  }
+}

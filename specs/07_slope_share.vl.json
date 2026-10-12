@@ -1,0 +1,155 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Slope chart: each state's share of national drama spend, 2023/24 vs 2024/25",
+  "width": 340,
+  "height": 320,
+  "data": {
+    "url": "data/spend_by_state.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "spend_m": "number",
+        "year_start": "number",
+        "capital_lat": "number",
+        "capital_lon": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum.year_start >= 2023"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "spend_m",
+          "as": "total"
+        }
+      ],
+      "groupby": [
+        "year"
+      ]
+    },
+    {
+      "calculate": "datum.spend_m / datum.total",
+      "as": "share"
+    },
+    {
+      "calculate": "datum.state + ' ' + format(datum.share, '.0%')",
+      "as": "label"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "orient": "top",
+        "domain": false,
+        "ticks": false
+      },
+      "scale": {
+        "padding": 0.25
+      }
+    },
+    "y": {
+      "field": "share",
+      "type": "quantitative",
+      "title": null,
+      "axis": null
+    },
+    "detail": {
+      "field": "state_name"
+    },
+    "color": {
+      "condition": {
+        "test": "datum.state == 'QLD'",
+        "value": "#C08420"
+      },
+      "value": "#8a867c"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 90,
+        "opacity": 1,
+        "stroke": "#1a1a19",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "state_name",
+            "title": "State"
+          },
+          {
+            "field": "year"
+          },
+          {
+            "field": "share",
+            "title": "Share",
+            "format": ".0%"
+          },
+          {
+            "field": "spend_m",
+            "title": "Spend ($m)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year_start == 2024 && datum.share > 0.05"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "fontSize": 12
+      },
+      "encoding": {
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "value": "#e8e4d8"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year_start == 2023 && datum.share > 0.1"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -10,
+        "fontSize": 12
+      },
+      "encoding": {
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "value": "#e8e4d8"
+        }
+      }
+    }
+  ]
+}

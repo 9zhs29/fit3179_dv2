@@ -1,0 +1,136 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Stacked bars: drama production spend by type, 2018/19 to 2024/25",
+  "width": "container",
+  "height": 320,
+  "data": {
+    "url": "data/spend_by_category.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "spend_m": "number"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "width": {
+          "band": 0.62
+        },
+        "stroke": "#1a1a19",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "aggregate": "sum",
+          "field": "spend_m",
+          "type": "quantitative",
+          "title": "Spend ($ millions)",
+          "axis": {
+            "format": ",.0f",
+            "tickCount": 5
+          }
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Australian features",
+              "Australian TV & streaming",
+              "International productions"
+            ],
+            "range": [
+              "#C08420",
+              "#169C9A",
+              "#E2586B"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal"
+          }
+        },
+        "order": {
+          "field": "stack_order",
+          "type": "quantitative",
+          "sort": "ascending"
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "title": "Financial year"
+          },
+          {
+            "field": "category",
+            "title": "Type"
+          },
+          {
+            "aggregate": "sum",
+            "field": "spend_m",
+            "title": "Spend ($m)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2020/21",
+            "y": 2050,
+            "text": "COVID: 'safe haven' shoots arrive"
+          },
+          {
+            "year": "2023/24",
+            "y": 1850,
+            "text": "US writers' & actors' strikes"
+          },
+          {
+            "year": "2024/25",
+            "y": 2830,
+            "text": "Record $2.7b"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#d8d4c8",
+        "baseline": "bottom"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "text"
+        }
+      }
+    }
+  ],
+  "transform": [
+    {
+      "calculate": "indexof(['Australian features','Australian TV & streaming','International productions'], datum.category)",
+      "as": "stack_order"
+    }
+  ]
+}
