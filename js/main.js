@@ -15,17 +15,19 @@ const theme = {
   title: { color: "#f2efe6" }
 };
 
+// [container id, spec file]
 const charts = [
   ["#vis-waffle", "specs/01_waffle.vl.json"],
   ["#vis-category", "specs/02_category_bars.vl.json"],
-  ["#vis-heatmap", "specs/03_state_heatmap.vl.json"],
-  ["#vis-bump", "specs/04_bump.vl.json"],
+  ["#vis-race", "specs/03_state_race.vl.json"],
   ["#vis-choropleth", "specs/05_choropleth_percapita.vl.json"],
   ["#vis-symbols", "specs/06_symbols_slider.vl.json"],
   ["#vis-slope", "specs/07_slope_share.vl.json"],
   ["#vis-marimekko", "specs/08_marimekko_finance.vl.json"],
   ["#vis-flow", "specs/09_flow_copro.vl.json"],
-  ["#vis-locations", "specs/10_locations_linked.vl.json"]
+  ["#vis-locations", "specs/10_locations_linked.vl.json"],
+  ["#vis-boxoffice", "specs/11_boxoffice_heatmap.vl.json"],
+  ["#vis-origin", "specs/12_origin_share.vl.json"]
 ];
 
 charts.forEach(([el, spec]) => {

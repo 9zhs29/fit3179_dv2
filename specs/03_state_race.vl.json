@@ -1,0 +1,309 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Linked heatmap and bump chart of drama production spend by state. Hover a state (row or line) to highlight it in both views.",
+  "data": {
+    "url": "data/spend_by_state.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "spend_m": "number",
+        "year_start": "number",
+        "capital_lat": "number",
+        "capital_lon": "number"
+      }
+    }
+  },
+  "vconcat": [
+    {
+      "width": 800,
+      "height": 210,
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0,
+            "orient": "top",
+            "domain": false,
+            "ticks": false
+          }
+        },
+        "y": {
+          "field": "state_name",
+          "type": "nominal",
+          "title": null,
+          "sort": [
+            "New South Wales",
+            "Queensland",
+            "Victoria",
+            "South Australia",
+            "Western Australia",
+            "ACT, NT & Tasmania"
+          ],
+          "axis": {
+            "domain": false,
+            "ticks": false
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "rect",
+            "stroke": "#1a1a19",
+            "strokeWidth": 2,
+            "cornerRadius": 3
+          },
+          "encoding": {
+            "color": {
+              "field": "spend_m",
+              "type": "quantitative",
+              "title": "Spend ($m)",
+              "scale": {
+                "scheme": "goldorange",
+                "domain": [
+                  0,
+                  1250
+                ]
+              },
+              "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "gradientLength": 220,
+                "format": ",.0f"
+              }
+            },
+            "tooltip": [
+              {
+                "field": "state_name",
+                "title": "State"
+              },
+              {
+                "field": "year",
+                "title": "Financial year"
+              },
+              {
+                "field": "spend_m",
+                "title": "Spend ($m)",
+                "format": ",.0f"
+              }
+            ],
+            "opacity": {
+              "condition": {
+                "test": "(!length(data('st_store')) && !length(data('st2_store'))) || vlSelectionTest('st_store', datum) || vlSelectionTest('st2_store', datum)",
+                "value": 1
+              },
+              "value": 0.3
+            }
+          },
+          "params": [
+            {
+              "name": "st",
+              "select": {
+                "type": "point",
+                "fields": [
+                  "state_name"
+                ],
+                "on": "pointerover",
+                "clear": "pointerout"
+              }
+            }
+          ]
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontSize": 11,
+            "fontWeight": 500
+          },
+          "encoding": {
+            "text": {
+              "field": "spend_m",
+              "type": "quantitative",
+              "format": ",.0f"
+            },
+            "color": {
+              "condition": {
+                "test": "datum.spend_m > 600",
+                "value": "#1a1a19"
+              },
+              "value": "#3a2a10"
+            },
+            "opacity": {
+              "condition": {
+                "test": "(!length(data('st_store')) && !length(data('st2_store'))) || vlSelectionTest('st_store', datum) || vlSelectionTest('st2_store', datum)",
+                "value": 1
+              },
+              "value": 0.3
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.state == 'QLD' && datum.year_start == 2024"
+            }
+          ],
+          "mark": {
+            "type": "rect",
+            "fill": null,
+            "stroke": "#f2efe6",
+            "strokeWidth": 2.5,
+            "cornerRadius": 3
+          }
+        }
+      ]
+    },
+    {
+      "width": 760,
+      "height": 200,
+      "transform": [
+        {
+          "window": [
+            {
+              "op": "rank",
+              "as": "rank"
+            }
+          ],
+          "sort": [
+            {
+              "field": "spend_m",
+              "order": "descending"
+            }
+          ],
+          "groupby": [
+            "year"
+          ]
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0,
+            "grid": false,
+            "domain": false,
+            "ticks": false
+          },
+          "scale": {
+            "padding": 0.5
+          }
+        },
+        "y": {
+          "field": "rank",
+          "type": "ordinal",
+          "title": "Rank (1 = most spend)",
+          "axis": {
+            "grid": false,
+            "domain": false,
+            "ticks": false
+          }
+        },
+        "color": {
+          "field": "state_name",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "domain": [
+              "New South Wales",
+              "Queensland",
+              "Victoria",
+              "South Australia",
+              "Western Australia",
+              "ACT, NT & Tasmania"
+            ],
+            "range": [
+              "#cfcabb",
+              "#C08420",
+              "#9a968b",
+              "#6f6c64",
+              "#6f6c64",
+              "#6f6c64"
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "(!length(data('st_store')) && !length(data('st2_store'))) || vlSelectionTest('st_store', datum) || vlSelectionTest('st2_store', datum)",
+            "value": 1
+          },
+          "value": 0.15
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "strokeWidth": 3,
+            "interpolate": "monotone"
+          }
+        },
+        {
+          "mark": {
+            "type": "circle",
+            "size": 110,
+            "stroke": "#1a1a19",
+            "strokeWidth": 2,
+            "opacity": 1
+          },
+          "encoding": {
+            "tooltip": [
+              {
+                "field": "state_name",
+                "title": "State"
+              },
+              {
+                "field": "year",
+                "title": "Year"
+              },
+              {
+                "field": "rank",
+                "title": "Rank"
+              },
+              {
+                "field": "spend_m",
+                "title": "Spend ($m)",
+                "format": ",.0f"
+              }
+            ]
+          },
+          "params": [
+            {
+              "name": "st2",
+              "select": {
+                "type": "point",
+                "fields": [
+                  "state_name"
+                ],
+                "on": "pointerover",
+                "clear": "pointerout"
+              }
+            }
+          ]
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.year == '2024/25'"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 12,
+            "fontSize": 12
+          },
+          "encoding": {
+            "text": {
+              "field": "state_name"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "spacing": 28
+}

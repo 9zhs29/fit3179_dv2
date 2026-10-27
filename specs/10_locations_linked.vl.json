@@ -41,7 +41,7 @@
   ],
   "vconcat": [
     {
-      "width": "container",
+      "width": 960,
       "height": 400,
       "projection": {
         "type": "mercator"
@@ -83,8 +83,7 @@
               "condition": {
                 "param": "era",
                 "field": "genre",
-                "type": "nominal",
-                "legend": null
+                "type": "nominal"
               },
               "value": "#4a4842"
             },
@@ -128,8 +127,7 @@
             ],
             "shape": {
               "field": "genre",
-              "type": "nominal",
-              "legend": null
+              "type": "nominal"
             }
           }
         }
@@ -137,7 +135,7 @@
     },
     {
       "name": "timeline",
-      "width": "container",
+      "width": 920,
       "height": 150,
       "mark": {
         "type": "point",
@@ -179,7 +177,7 @@
         "color": {
           "field": "genre",
           "type": "nominal",
-          "title": "Genre (click)",
+          "title": "Genre (click to isolate):",
           "scale": {
             "domain": [
               "Action & thriller",
@@ -197,7 +195,9 @@
             ]
           },
           "legend": {
-            "orient": "right"
+            "orient": "top",
+            "direction": "horizontal",
+            "title": "Genre (click to isolate):"
           }
         },
         "opacity": {
@@ -240,7 +240,12 @@
               "cross"
             ]
           },
-          "title": "Genre (click)"
+          "title": "Genre (click to isolate):",
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "title": "Genre (click to isolate):"
+          }
         }
       }
     }

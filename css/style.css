@@ -85,3 +85,38 @@ a { color: var(--gold-light); }
   .wrap { padding: 0 16px; }
   h2 { font-size: 38px; }
 }
+
+/* Finale */
+.finale { background: linear-gradient(180deg, var(--bg), #17150f); }
+.takeaways { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 24px 0 32px; }
+.takeaways > div { border-top: 2px solid var(--gold); padding-top: 12px; }
+.takeaways .big { font-family: "Bebas Neue", Impact, sans-serif; font-size: 56px; color: var(--gold-light); line-height: 1; }
+.takeaways p { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+@media (max-width: 860px) { .takeaways { grid-template-columns: 1fr 1fr; } }
+.chart.wide + .grid-2 { margin-top: 40px; }
+#vis-waffle { display: flex; justify-content: center; }
+
+/* ---------- Chart cards: title, how-to-read, interaction hint ---------- */
+.chart { display: flex; flex-direction: column; gap: 10px; }
+.chart-head h4 {
+  font-family: "Inter", system-ui, sans-serif; font-size: 16px; font-weight: 600;
+  color: var(--ink); margin: 0 0 4px; line-height: 1.35;
+}
+.chart-head .how { font-size: 13px; color: var(--muted); margin: 0; max-width: 90ch; line-height: 1.5; }
+.chart .vis { width: 100%; min-width: 0; }
+.chart .vis .vega-embed { width: 100%; }
+.chart .hint {
+  margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--rule);
+  font-size: 13px; color: var(--ink-2); max-width: none; line-height: 1.9;
+}
+.tag {
+  display: inline-block; font-family: "Courier Prime", monospace; font-weight: 700; font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #14130f; background: var(--gold-light);
+  border-radius: 3px; padding: 1px 6px; margin-right: 2px; line-height: 1.5;
+}
+.howto { background: #17160f; border-bottom: 1px solid var(--rule); padding: 14px 0; }
+.howto p { margin: 0; font-size: 14px; max-width: none; }
+.align-stretch { align-items: stretch; margin-bottom: 0; }
+.row-gap { margin-top: 40px; }
+.grid-2 > .copy { min-width: 0; }
+#vis-waffle, #vis-slope { display: flex; justify-content: center; }

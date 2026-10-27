@@ -132,7 +132,7 @@
         "color": {
           "field": "source",
           "type": "nominal",
-          "title": "Source of money",
+          "title": "Source of money (gold shades = government)",
           "scale": {
             "domain": [
               "Australian private investors",
@@ -152,7 +152,8 @@
           "legend": {
             "orient": "bottom",
             "labelLimit": 320,
-            "columns": 3
+            "columns": 3,
+            "titleLimit": 400
           }
         },
         "tooltip": [
@@ -174,8 +175,30 @@
             "title": "Share of format",
             "format": ".0%"
           }
-        ]
-      }
+        ],
+        "opacity": {
+          "condition": {
+            "param": "src",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.25
+        }
+      },
+      "params": [
+        {
+          "name": "src",
+          "select": {
+            "type": "point",
+            "fields": [
+              "source"
+            ],
+            "on": "pointerover",
+            "clear": "pointerout"
+          },
+          "bind": "legend"
+        }
+      ]
     },
     {
       "transform": [
@@ -209,6 +232,10 @@
       "transform": [
         {
           "filter": "datum.y1 == 1"
+        },
+        {
+          "calculate": "datum.format + ' \u00b7 $' + datum.format_total + 'm raised'",
+          "as": "hdr"
         }
       ],
       "mark": {
@@ -226,9 +253,13 @@
           "datum": 1
         },
         "text": {
-          "field": "format"
+          "field": "hdr"
         }
       }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
 }

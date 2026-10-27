@@ -82,8 +82,28 @@
             "title": "Spend ($m)",
             "format": ",.0f"
           }
-        ]
-      }
+        ],
+        "opacity": {
+          "condition": {
+            "param": "cat",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.15
+        }
+      },
+      "params": [
+        {
+          "name": "cat",
+          "select": {
+            "type": "point",
+            "fields": [
+              "category"
+            ]
+          },
+          "bind": "legend"
+        }
+      ]
     },
     {
       "data": {
@@ -132,5 +152,9 @@
       "calculate": "indexof(['Australian features','Australian TV & streaming','International productions'], datum.category)",
       "as": "stack_order"
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
 }

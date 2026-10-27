@@ -1,0 +1,255 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Heatmap of Australian films' share of the local box office each year (1977-2025), linked to a list of that year's top-100 Australian films. Click a year to see its hits.",
+  "hconcat": [
+    {
+      "name": "grid",
+      "width": 430,
+      "height": 250,
+      "data": {
+        "url": "data/boxoffice_share.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "year": "number",
+            "aus_box_office_m": "number",
+            "aus_share_pct": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "floor(datum.year / 10) * 10",
+          "as": "decade_start"
+        },
+        {
+          "calculate": "datum.decade_start + 's'",
+          "as": "decade"
+        },
+        {
+          "calculate": "datum.year % 10",
+          "as": "yr_in_decade"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "yr_in_decade",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "orient": "top",
+            "labelExpr": "'\u2026' + datum.value",
+            "domain": false,
+            "ticks": false,
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "decade",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "domain": false,
+            "ticks": false
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "rect",
+            "cornerRadius": 3,
+            "stroke": "#1a1a19",
+            "strokeWidth": 2,
+            "cursor": "pointer"
+          },
+          "encoding": {
+            "color": {
+              "field": "aus_share_pct",
+              "type": "quantitative",
+              "title": "Share of box office (%)",
+              "scale": {
+                "scheme": "goldorange",
+                "domain": [
+                  0,
+                  24
+                ]
+              },
+              "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "gradientLength": 220
+              }
+            },
+            "tooltip": [
+              {
+                "field": "year",
+                "title": "Year"
+              },
+              {
+                "field": "aus_share_pct",
+                "title": "Australian films' share (%)"
+              },
+              {
+                "field": "aus_box_office_m",
+                "title": "Australian films' takings ($m)"
+              }
+            ]
+          },
+          "params": [
+            {
+              "name": "pick",
+              "select": {
+                "type": "point",
+                "fields": [
+                  "year"
+                ],
+                "on": "click",
+                "clear": false
+              },
+              "value": [
+                {
+                  "year": 2021
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "transform": [
+            {
+              "filter": {
+                "param": "pick",
+                "empty": false
+              }
+            }
+          ],
+          "mark": {
+            "type": "rect",
+            "fill": null,
+            "stroke": "#f2efe6",
+            "strokeWidth": 2.5,
+            "cornerRadius": 3
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontSize": 11,
+            "fontWeight": 600
+          },
+          "encoding": {
+            "text": {
+              "field": "aus_share_pct",
+              "type": "quantitative",
+              "format": ".0f"
+            },
+            "color": {
+              "condition": {
+                "test": "datum.aus_share_pct > 9",
+                "value": "#1a1a19"
+              },
+              "value": "#3a2a10"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": 280,
+      "height": 250,
+      "data": {
+        "url": "data/top100_films.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "rank": "number",
+            "release_year": "number",
+            "box_office_aud": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.release_year",
+          "as": "year"
+        },
+        {
+          "filter": {
+            "param": "pick"
+          }
+        },
+        {
+          "calculate": "datum.box_office_aud / 1000000",
+          "as": "gross_m"
+        },
+        {
+          "calculate": "'#' + datum.rank + '  ' + datum.title",
+          "as": "label"
+        }
+      ],
+      "title": {
+        "text": {
+          "expr": "'Top-100 Aussie films released in ' + (isValid(pick.year) ? pick.year : 'the selected year')"
+        },
+        "anchor": "start",
+        "fontSize": 13,
+        "font": "Courier Prime, monospace",
+        "color": "#e0b45c"
+      },
+      "mark": {
+        "type": "bar",
+        "color": "#C08420",
+        "cornerRadiusEnd": 3,
+        "height": 16
+      },
+      "encoding": {
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null,
+          "axis": {
+            "labelLimit": 200,
+            "domain": false,
+            "ticks": false
+          }
+        },
+        "x": {
+          "field": "gross_m",
+          "type": "quantitative",
+          "title": "Lifetime Australian box office ($m)",
+          "axis": {
+            "tickCount": 4,
+            "grid": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "title",
+            "title": "Film"
+          },
+          {
+            "field": "rank",
+            "title": "All-time rank"
+          },
+          {
+            "field": "distributor",
+            "title": "Distributor"
+          },
+          {
+            "field": "gross_m",
+            "title": "Box office ($m)",
+            "format": ",.1f"
+          }
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "color": "independent"
+    }
+  },
+  "spacing": 40
+}

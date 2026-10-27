@@ -138,7 +138,15 @@
             "field": "titles",
             "title": "Co-productions since 1986"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": {
+            "param": "cp",
+            "empty": true,
+            "value": 0.75
+          },
+          "value": 0.1
+        }
       }
     },
     {
@@ -198,8 +206,29 @@
             "field": "titles",
             "title": "Co-productions since 1986"
           }
-        ]
-      }
+        ],
+        "opacity": {
+          "condition": {
+            "param": "cp",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.3
+        }
+      },
+      "params": [
+        {
+          "name": "cp",
+          "select": {
+            "type": "point",
+            "fields": [
+              "country"
+            ],
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
+        }
+      ]
     },
     {
       "data": {
@@ -256,5 +285,9 @@
         }
       }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
 }

@@ -57,7 +57,8 @@
   "mark": {
     "type": "square",
     "size": 520,
-    "cornerRadius": 2
+    "cornerRadius": 2,
+    "opacity": 1
   },
   "encoding": {
     "x": {
@@ -106,6 +107,28 @@
         "field": "squares",
         "title": "Out of every $100"
       }
-    ]
-  }
+    ],
+    "opacity": {
+      "condition": {
+        "param": "hl",
+        "empty": true,
+        "value": 1
+      },
+      "value": 0.2
+    }
+  },
+  "params": [
+    {
+      "name": "hl",
+      "select": {
+        "type": "point",
+        "fields": [
+          "category"
+        ],
+        "on": "pointerover",
+        "clear": "pointerout"
+      },
+      "bind": "legend"
+    }
+  ]
 }

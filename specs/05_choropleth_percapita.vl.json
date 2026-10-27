@@ -83,8 +83,37 @@
             "title": "Spend per resident ($)",
             "format": ",.0f"
           }
-        ]
-      }
+        ],
+        "strokeWidth": {
+          "condition": {
+            "param": "hov",
+            "empty": false,
+            "value": 3
+          },
+          "value": 1.5
+        },
+        "stroke": {
+          "condition": {
+            "param": "hov",
+            "empty": false,
+            "value": "#f2efe6"
+          },
+          "value": "#1a1a19"
+        }
+      },
+      "params": [
+        {
+          "name": "hov",
+          "select": {
+            "type": "point",
+            "fields": [
+              "group"
+            ],
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
+        }
+      ]
     },
     {
       "data": {
@@ -141,5 +170,9 @@
         }
       }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
 }

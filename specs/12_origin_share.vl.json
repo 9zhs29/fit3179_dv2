@@ -1,0 +1,154 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "100% stacked bars: share of Australian box office by country of origin of the film, three-year averages.",
+  "width": "container",
+  "height": 220,
+  "data": {
+    "url": "data/boxoffice_origin_3yr.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "share_pct": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "indexof(['Australia', 'UK', 'Rest of world', 'USA'], datum.origin)",
+      "as": "o"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "stroke": "#1a1a19",
+        "strokeWidth": 2,
+        "height": 26
+      },
+      "encoding": {
+        "y": {
+          "field": "period",
+          "type": "ordinal",
+          "title": "Three-year average",
+          "axis": {
+            "domain": false,
+            "ticks": false
+          }
+        },
+        "x": {
+          "field": "share_pct",
+          "type": "quantitative",
+          "stack": "normalize",
+          "title": null,
+          "axis": {
+            "format": "%",
+            "grid": false
+          }
+        },
+        "color": {
+          "field": "origin",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Australia",
+              "UK",
+              "Rest of world",
+              "USA"
+            ],
+            "range": [
+              "#C08420",
+              "#a49f93",
+              "#6f6c64",
+              "#55524c"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal"
+          }
+        },
+        "order": {
+          "field": "o",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "period",
+            "title": "Years"
+          },
+          {
+            "field": "origin",
+            "title": "Made in"
+          },
+          {
+            "field": "share_pct",
+            "title": "Share of box office (%)"
+          }
+        ],
+        "opacity": {
+          "condition": {
+            "param": "org",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.25
+        }
+      },
+      "params": [
+        {
+          "name": "org",
+          "select": {
+            "type": "point",
+            "fields": [
+              "origin"
+            ],
+            "on": "pointerover",
+            "clear": "pointerout"
+          },
+          "bind": "legend"
+        }
+      ]
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.origin == 'Australia'"
+        },
+        {
+          "calculate": "'Australian: ' + format(datum.share_pct, '.1f') + '%'",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "fontWeight": 600,
+        "align": "left",
+        "dx": 10,
+        "color": "#e0b45c"
+      },
+      "encoding": {
+        "y": {
+          "field": "period",
+          "type": "ordinal"
+        },
+        "x": {
+          "datum": 1,
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
+    }
+  ],
+  "padding": {
+    "right": 130
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

@@ -70,6 +70,14 @@
         "value": "#C08420"
       },
       "value": "#8a867c"
+    },
+    "opacity": {
+      "condition": {
+        "param": "sl",
+        "empty": true,
+        "value": 1
+      },
+      "value": 0.2
     }
   },
   "layer": [
@@ -107,7 +115,20 @@
             "format": ",.0f"
           }
         ]
-      }
+      },
+      "params": [
+        {
+          "name": "sl",
+          "select": {
+            "type": "point",
+            "fields": [
+              "state_name"
+            ],
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
+        }
+      ]
     },
     {
       "transform": [

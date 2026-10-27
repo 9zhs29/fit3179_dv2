@@ -133,6 +133,34 @@
           }
         }
       ]
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "top",
+        "x": {
+          "expr": "width - 6"
+        },
+        "y": 8,
+        "fontSize": 32,
+        "font": "Bebas Neue, Impact, sans-serif",
+        "color": "#e0b45c",
+        "text": {
+          "expr": "yr + '/' + (yr % 100 + 1)"
+        }
+      }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
 }
