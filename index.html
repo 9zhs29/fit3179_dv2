@@ -17,18 +17,18 @@
 <header class="hero">
   <div class="wrap">
     <h1>Made in Australia</h1>
-    <p class="dek">Hollywood blockbusters, homegrown dramas and streaming series spent a record
-      <strong>$2.7&nbsp;billion</strong> making screen stories here last year. Where did that money go,
-      who paid for it, and where do the cameras actually roll?</p>
-    <p class="byline">By <span class="todo-inline">Ewan Chong</span> · FIT3179 Data Visualisation 2 · October 2026</p>
+    <p class="dek">A record <strong>$2.7&nbsp;billion</strong> was spent making films and TV dramas in Australia last year.
+      Where did that money come from, where was it spent, and do Australians actually watch what we make?</p>
+    <p class="byline">By <span class="todo-inline">[Your name]</span> · FIT3179 Data Visualisation 2 · October 2026</p>
   </div>
 </header>
 
 <main>
 
+
 <!-- ============ SCENE 1 ============ -->
 <section class="scene">
-  <div class="wrap grid-2">
+  <div class="wrap grid-2 align-center">
     <div class="copy">
       <p class="slug">SCENE 1 — THE MONEY</p>
       <h2>Most of the money is now foreign</h2>
@@ -37,9 +37,12 @@
       <p>But for every $100 spent, about <strong class="c-intl">$60 came from international productions</strong>:
         overseas studios that shoot here or do their visual effects here.
         Australian stories made up the other $40.</p>
-      <p class="note">Each square = $1 out of every $100 spent. Hover for dollar amounts.</p>
     </div>
-    <figure class="chart" id="vis-waffle"></figure>
+    <figure class="chart">
+      <div class="chart-head"><h4>Every $100 spent on drama production, 2024/25</h4><p class="how">Each square is $1. Colour shows who was spending it.</p></div>
+      <div class="vis" id="vis-waffle"></div>
+      <p class="hint"><span class="tag">Hover</span> a colour to highlight it and see the dollar amount. </p>
+    </figure>
   </div>
 </section>
 
@@ -51,7 +54,11 @@
     <p class="lede">Spending has swung wildly. Australia's early COVID control made it a "safe haven" for
       Hollywood in 2020/21. Then the 2023 US writers' and actors' strikes stopped many productions, and
       2023/24 dropped to $1.7&nbsp;billion. International shoots drove the record rebound in 2024/25.</p>
-    <figure class="chart wide" id="vis-category"></figure>
+    <figure class="chart wide">
+      <div class="chart-head"><h4>Spending has more than doubled since 2018/19, and international productions drive the biggest jumps</h4><p class="how">Each bar is one financial year's total spend, split by type of production. Taller = more money.</p></div>
+      <div class="vis" id="vis-category"></div>
+      <p class="hint"><span class="tag">Click</span> a type in the legend to show only that type; click empty space to reset. <span class="tag">Hover</span> a bar segment for exact dollars. </p>
+    </figure>
     <p class="source">Source: Screen Australia, Drama Reports 2022/23, 2023/24, 2024/25. Spend is counted in the financial year production started.
       2024/25 international figure = total minus Australian titles.</p>
   </div>
@@ -64,15 +71,12 @@
     <h2>Queensland steals the crown</h2>
     <p class="lede">For years, New South Wales was the undisputed home of Australian screen production. In 2024/25,
       Queensland overtook it for the first time in this period, thanks to blockbusters filmed at the Gold Coast's studios.</p>
-    <div class="grid-2 align-start">
-      <figure class="chart" id="vis-heatmap">
-        <figcaption>Production spend ($ millions) by state and year</figcaption>
-      </figure>
-      <figure class="chart" id="vis-bump">
-        <figcaption>Ranking by spend each year. Hover a line to follow a state.</figcaption>
-      </figure>
-    </div>
-    <div class="grid-2 align-center">
+    <figure class="chart wide">
+      <div class="chart-head"><h4>NSW led every year until Queensland jumped to first in 2024/25</h4><p class="how">Top: each cell is one state in one year; darker = more money, outlined cell = Queensland's record year. Bottom: each state's rank, where 1 means the biggest spend.</p></div>
+      <div class="vis" id="vis-race"></div>
+      <p class="hint"><span class="tag">Hover</span> a row or a line to follow one state through both charts. </p>
+    </figure>
+    <div class="grid-2 align-center row-gap">
       <div class="copy">
         <h3>A one-year swing</h3>
         <p>NSW's share of national spending fell from about half to under a third in a single year.
@@ -80,7 +84,11 @@
           so one or two films can reshape the whole map.</p>
         <p class="note">ACT, NT and Tasmania are reported together by Screen Australia to protect confidentiality.</p>
       </div>
-      <figure class="chart" id="vis-slope"></figure>
+      <figure class="chart">
+      <div class="chart-head"><h4>Share of national spend, 2023/24 vs 2024/25</h4><p class="how">Each line joins a state's share in the two years. Upward = gained share. The three short lines at the bottom are SA, WA and ACT/NT/Tas (1–5% each).</p></div>
+      <div class="vis" id="vis-slope"></div>
+      <p class="hint"><span class="tag">Hover</span> a line to highlight it. </p>
+    </figure>
     </div>
   </div>
 </section>
@@ -90,15 +98,19 @@
   <div class="wrap">
     <p class="slug">SCENE 4 — ON THE MAP</p>
     <h2>Per person, Queensland is the screen state</h2>
-    <p class="lede">Dividing each state's production spend by its population shows how much the industry matters locally.
+    <p class="lede">Big states will always spend more in total. Dividing each state's spend by its population shows how much the industry matters locally.
       Queensland's $925&nbsp;million works out to about <strong>$161 for every resident</strong>, well ahead of Victoria and NSW.</p>
-    <div class="grid-2 align-start">
-      <figure class="chart" id="vis-choropleth">
-        <figcaption>2024/25 production spend per resident. *ACT, NT &amp; Tas are reported as one group.</figcaption>
-      </figure>
-      <figure class="chart" id="vis-symbols">
-        <figcaption>Total spend by state (circle at capital city). Drag the slider to replay 2018–2024.</figcaption>
-      </figure>
+    <div class="grid-2 align-stretch">
+      <figure class="chart">
+      <div class="chart-head"><h4>Spend per resident, 2024/25</h4><p class="how">Darker states spent more per person. *ACT, NT and Tasmania are reported as one group, so they share one colour.</p></div>
+      <div class="vis" id="vis-choropleth"></div>
+      <p class="hint"><span class="tag">Hover</span> a state for its total and per-person figures. </p>
+    </figure>
+      <figure class="chart">
+      <div class="chart-head"><h4>Total spend in each state, year by year</h4><p class="how">Circle size = total dollars spent, placed at each capital city. Bigger circle = more money.</p></div>
+      <div class="vis" id="vis-symbols"></div>
+      <p class="hint"><span class="tag">Drag</span> the slider to step through each year and watch the money move north. </p>
+    </figure>
     </div>
     <p class="source">Sources: Screen Australia Drama Reports; Australian Bureau of Statistics, National, state and territory population (March 2026).</p>
   </div>
@@ -109,8 +121,14 @@
   <div class="wrap">
     <p class="slug">SCENE 5 — WHO PAYS?</p>
     <h2>Taxpayers fund a third or more of our stories</h2>
-    
-    <figure class="chart wide" id="vis-marimekko"></figure>
+    <p class="lede">Australian films and series rarely pay for themselves upfront. Government money covers 44% of local feature film
+      budgets, mostly through the <strong>Producer Offset</strong>, a federal tax rebate that returns part of a production's budget to the producer.
+      TV and streaming series lean more on broadcasters and streamers.</p>
+    <figure class="chart wide">
+      <div class="chart-head"><h4>Who paid for Australian films and series, 2024/25</h4><p class="how">Column width = total money raised by each format, so TV and streaming is wider because it raised more. Block height = share from each source. Gold shades are government money.</p></div>
+      <div class="vis" id="vis-marimekko"></div>
+      <p class="hint"><span class="tag">Hover</span> a block or a legend item to highlight that source in both columns. </p>
+    </figure>
     <p class="source">Source: Screen Australia, Drama Report 2024/25 Key Findings.</p>
   </div>
 </section>
@@ -121,41 +139,95 @@
     <p class="slug">SCENE 6 — GOING GLOBAL</p>
     <h2>Our co-production partners</h2>
     <p class="lede">An <strong>official co-production</strong> is a film or series made under a treaty between Australia and another country,
-      so it counts as "local" in both. Since 1986, 230 titles have been made this way.
-      Most partners are Commonwealth countries or in Europe.</p>
-    <figure class="chart wide" id="vis-flow"></figure>
+      so it counts as "local" in both. Since 1986, 230 titles have been made this way. Canada, the UK and France account for more than
+      70% of them.</p>
+    <figure class="chart wide">
+      <div class="chart-head"><h4>Canada and the UK are Australia's biggest screen partners</h4><p class="how">Each line runs from Canberra to a partner country. Thicker line and bigger circle = more co-productions since 1986.</p></div>
+      <div class="vis" id="vis-flow"></div>
+      <p class="hint"><span class="tag">Hover</span> a partner's circle to highlight its link. </p>
+    </figure>
     <p class="source">Source: Screen Australia, Co-production trends (as at 30 June 2026).</p>
   </div>
 </section>
 
-
-<!-- ============ SCENE 7 (TO DO) ============ -->
+<!-- ============ SCENE 7 ============ -->
 <section class="scene">
   <div class="wrap">
-    <p class="slug">SCENE 7 — THE AUDIENCE</p>
-    <h2>Do Australians watch Australian films?</h2>
-    <div class="todo">
-      <strong>TO DO (draft)</strong>
+    <p class="slug">SCENE 7 — WHERE THE CAMERAS ROLL</p>
+    <h2>From the outback to the Gold Coast</h2>
+    <p class="lede">Australia's most memorable films are often defined by place: the red dust of Broken Hill,
+      the eerie rocks of Hanging Rock, the wetlands of Kakadu. Older classics went out bush, while recent blockbusters
+      such as <em>Elvis</em> were shot mostly inside studios.</p>
+    <figure class="chart wide">
+      <div class="chart-head"><h4>Where 23 iconic Australian films were shot</h4><p class="how">Map: one symbol per film, placed where it was shot. Timeline below: the same films by release year and state. Symbol shape and colour = genre.</p></div>
+      <div class="vis" id="vis-locations"></div>
+      <p class="hint"><span class="tag">Drag</span> across the timeline to show only films from that era on the map. <span class="tag">Click</span> a genre in the legend to isolate it. <span class="tag">Hover</span> any symbol for the film's name. </p>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ SCENE 8 ============ -->
+<section class="scene">
+  <div class="wrap">
+    <p class="slug">SCENE 8 — THE AUDIENCE</p>
+    <h2>We make them here, but we rarely watch them</h2>
+    <p class="lede">Here's the twist. Australia is busier than ever as a place to <em>make</em> films, but Australian films
+      usually earn only <strong>2–5% of what we spend at the cinema</strong>. Big years come from one or two breakout hits:
+      <em>Crocodile Dundee</em> in 1986, or <em>Peter Rabbit 2</em> and <em>The Dry</em> in 2021.</p>
+    <figure class="chart wide">
+      <div class="chart-head"><h4>Australian films' share of our own box office, 1977–2025</h4><p class="how">Each square is one year: read the decade on the left and the year along the top (…6 in the 1980s = 1986). Darker = bigger share; the number is the % share.</p></div>
+      <div class="vis" id="vis-boxoffice"></div>
+      <p class="hint"><span class="tag">Click</span> any year to list its biggest Australian films on the right (2021 is shown first). </p>
+    </figure>
+    <div class="grid-2 align-center row-gap">
+      <div class="copy">
+        <h3>Hollywood takes the lion's share</h3>
+        <p>Over the last three years, <strong>US films took about 84 cents of every box-office dollar</strong>. Australian films took under 3 cents,
+          their lowest share in this period. Many of the record-breaking productions in Scene 1 were Hollywood films that happened to be shot here.</p>
+        <p class="note">Three-year averages smooth out single breakout years.</p>
+      </div>
+      <figure class="chart">
+      <div class="chart-head"><h4>Where the films we watch were made</h4><p class="how">Each bar is 100% of cinema takings over three years, split by the country the films came from.</p></div>
+      <div class="vis" id="vis-origin"></div>
+      <p class="hint"><span class="tag">Hover</span> a segment or legend item to highlight it. </p>
+    </figure>
     </div>
+    <p class="source">Source: Screen Australia, Domestic box office and share since 1977; Top 100 Australian feature films of all time (box office in current dollars, not adjusted for inflation).</p>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section class="scene finale">
+  <div class="wrap">
+    <p class="slug">FINAL CUT</p>
+    <h2>A booming backlot, a quiet box office</h2>
+    <div class="takeaways">
+      <div><span class="big">$2.7b</span><p>spent making screen drama in Australia in 2024/25, a record</p></div>
+      <div><span class="big">60%</span><p>of that came from international productions</p></div>
+      <div><span class="big">$161</span><p>of production spend per Queenslander, the highest of any state</p></div>
+      <div><span class="big">2.8%</span><p>of cinema takings went to Australian films (2023–25 average)</p></div>
+    </div>
+    <p class="lede">Generous tax rebates and world-class studios have made Australia one of the world's busiest film sets.
+      Whether that boom turns into Australian stories that Australians actually watch is the next scene still to be written.</p>
   </div>
 </section>
 
 <!-- ============ CREDITS ============ -->
 <footer class="credits">
   <div class="wrap">
-    <p class="slug">Sources</p>
-    <h3></h3>
+    <p class="slug">ROLL CREDITS</p>
+    <h3>Data sources</h3>
     <ul>
       <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/getmedia/9abdfbbc-ab6f-47cb-b809-26364ccd177d/Drama-Report-2024-25-Key-Findings.pdf">Drama Report 2024/25 Key Findings</a>,
         <a href="https://www.screenaustralia.gov.au/getmedia/72cf0488-5782-4eda-9008-51be1524f8c9/SA-Drama-Report-2023_24-Key-Findings.pdf">2023/24 Key Findings</a>,
         <a href="https://www.screenaustralia.gov.au/getmedia/22bfb310-9734-4845-9d03-a2c472a08a35/Screen-Australia-Drama-Report-2022-23.pdf">Drama Report 2022/23</a>.</li>
-      <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/co-production-program/co-production-trends/">Co-production trends</a>.</li>
+      <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/insights-and-trends/drama-production/spend-by-location/">Drama production: spend by location</a> (2023/24 state figures).</li>
+      <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/co-production-program/co-production-trends/">Co-production trends</a> (as at 30 June 2026).</li>
+      <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/insights-and-trends/australian-films/box-office-share/">Domestic box office and share since 1977</a> and <a href="https://www.screenaustralia.gov.au/insights-and-trends/australian-films/top-australian-films/">Top 100 Australian feature films of all time</a>.</li>
       <li>Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/latest-release">National, state and territory population, March 2026</a>.</li>
-      <li>Filming locations compiled from each film's Wikipedia article. Locations are approximate.</li>
-      <li>Boundaries: <a href="https://github.com/rowanhogan/australian-states">rowanhogan/australian-states</a> (simplified); world map: <a href="https://github.com/vega/vega-datasets">vega-datasets</a>.</li>
     </ul>
     <h3>About</h3>
-    <p>Created by Ewan Chong, October 2026, with Vega-Lite. Generative AI was used to help draft the page structure.
+    <p>Created by <span class="todo-inline">Ewan Chong, October 2026, with Vega-Lite. Generative AI (Claude) was used to help draft the page structure.
   </div>
 </footer>
 
