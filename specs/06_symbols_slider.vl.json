@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Proportional symbol map: production spend in each mainland state, with a year slider. ACT, NT and Tasmania are reported combined by Screen Australia, so are not mapped.",
   "width": "container",
-  "height": 380,
+  "height": 470,
   "projection": {
     "type": "mercator"
   },
@@ -50,16 +50,28 @@
       },
       "transform": [
         {
-          "filter": "datum.year_start == yr && isValid(datum.capital_lat)"
+          "filter": "datum.year_start == yr"
+        },
+        {
+          "calculate": "isValid(datum.capital_lat) ? datum.capital_lon : 117.5",
+          "as": "plon"
+        },
+        {
+          "calculate": "isValid(datum.capital_lat) ? datum.capital_lat : -41.5",
+          "as": "plat"
+        },
+        {
+          "calculate": "isValid(datum.capital_lat) ? 0 : 1",
+          "as": "combined"
         }
       ],
       "encoding": {
         "longitude": {
-          "field": "capital_lon",
+          "field": "plon",
           "type": "quantitative"
         },
         "latitude": {
-          "field": "capital_lat",
+          "field": "plat",
           "type": "quantitative"
         }
       },
@@ -88,13 +100,15 @@
                 ]
               },
               "legend": {
-                "orient": "top-left",
+                "orient": "bottom",
+                "direction": "horizontal",
                 "values": [
                   100,
                   500,
                   1000
                 ],
-                "format": ",.0f"
+                "format": ",.0f",
+                "title": "Spend ($m)"
               }
             },
             "tooltip": [
@@ -111,7 +125,34 @@
                 "title": "Spend ($m)",
                 "format": ",.0f"
               }
-            ]
+            ],
+            "strokeDash": {
+              "condition": {
+                "test": "datum.combined == 1",
+                "value": [
+                  3,
+                  3
+                ]
+              },
+              "value": [
+                1,
+                0
+              ]
+            },
+            "stroke": {
+              "condition": {
+                "test": "datum.combined == 1",
+                "value": "#e0b45c"
+              },
+              "value": "#1a1a19"
+            },
+            "fillOpacity": {
+              "condition": {
+                "test": "datum.combined == 1",
+                "value": 0.35
+              },
+              "value": 0.75
+            }
           }
         },
         {
@@ -129,6 +170,26 @@
               "field": "spend_m",
               "type": "quantitative",
               "format": "$,.0f"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.combined == 1"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 16,
+            "fontSize": 11,
+            "color": "#b9b4a6",
+            "baseline": "middle"
+          },
+          "encoding": {
+            "text": {
+              "value": "ACT, NT & Tas combined*"
             }
           }
         }

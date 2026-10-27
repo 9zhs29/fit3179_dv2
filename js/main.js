@@ -25,7 +25,6 @@ const charts = [
   ["#vis-slope", "specs/07_slope_share.vl.json"],
   ["#vis-marimekko", "specs/08_marimekko_finance.vl.json"],
   ["#vis-flow", "specs/09_flow_copro.vl.json"],
-  ["#vis-locations", "specs/10_locations_linked.vl.json"],
   ["#vis-boxoffice", "specs/11_boxoffice_heatmap.vl.json"],
   ["#vis-origin", "specs/12_origin_share.vl.json"]
 ];

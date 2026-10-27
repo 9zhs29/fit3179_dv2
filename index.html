@@ -16,15 +16,23 @@
 
 <header class="hero">
   <div class="wrap">
+    <p class="slug">FADE IN: EXT. AUSTRALIA – 2025</p>
     <h1>Made in Australia</h1>
     <p class="dek">A record <strong>$2.7&nbsp;billion</strong> was spent making films and TV dramas in Australia last year.
       Where did that money come from, where was it spent, and do Australians actually watch what we make?</p>
-    <p class="byline">By <span class="todo-inline">Ewan Chong (34996478)· FIT3179 Data Visualisation 2 · October 2026</p>
+    <p class="byline">By <span class="todo-inline">[Your name]</span> · FIT3179 Data Visualisation 2 · October 2026</p>
   </div>
 </header>
 
 <main>
 
+<!-- ============ HOW TO READ ============ -->
+<div class="howto">
+  <div class="wrap">
+    <p><strong>How to use this page:</strong> scroll down through seven short scenes. Every chart is interactive. Look for the
+      <span class="tag">Hover</span> <span class="tag">Click</span> <span class="tag">Drag</span> tags under each chart for what to try.</p>
+  </div>
+</div>
 
 <!-- ============ SCENE 1 ============ -->
 <section class="scene">
@@ -85,7 +93,7 @@
         <p class="note">ACT, NT and Tasmania are reported together by Screen Australia to protect confidentiality.</p>
       </div>
       <figure class="chart">
-      <div class="chart-head"><h4>Share of national spend, 2023/24 vs 2024/25</h4><p class="how">Each line joins a state's share in the two years. Upward = gained share. The three short lines at the bottom are SA, WA and ACT/NT/Tas (1–5% each).</p></div>
+      <div class="chart-head"><h4>Share of national spend, 2023/24 vs 2024/25</h4><p class="how">Each line joins a state's share in the two years. Upward = gained share. Labels at the bottom are nudged apart so they don't overlap.</p></div>
       <div class="vis" id="vis-slope"></div>
       <p class="hint"><span class="tag">Hover</span> a line to highlight it. </p>
     </figure>
@@ -107,7 +115,7 @@
       <p class="hint"><span class="tag">Hover</span> a state for its total and per-person figures. </p>
     </figure>
       <figure class="chart">
-      <div class="chart-head"><h4>Total spend in each state, year by year</h4><p class="how">Circle size = total dollars spent, placed at each capital city. Bigger circle = more money.</p></div>
+      <div class="chart-head"><h4>Total spend in each state, year by year</h4><p class="how">Circle size = total dollars spent, placed at each capital city. Bigger circle = more money. *Screen Australia reports ACT, NT and Tasmania as one combined figure to protect confidentiality, so that circle (dashed, in the ocean) has no single location.</p></div>
       <div class="vis" id="vis-symbols"></div>
       <p class="hint"><span class="tag">Drag</span> the slider to step through each year and watch the money move north. </p>
     </figure>
@@ -153,23 +161,7 @@
 <!-- ============ SCENE 7 ============ -->
 <section class="scene">
   <div class="wrap">
-    <p class="slug">SCENE 7 — WHERE THE CAMERAS ROLL</p>
-    <h2>From the outback to the Gold Coast</h2>
-    <p class="lede">Australia's most memorable films are often defined by place: the red dust of Broken Hill,
-      the eerie rocks of Hanging Rock, the wetlands of Kakadu. Older classics went out bush, while recent blockbusters
-      such as <em>Elvis</em> were shot mostly inside studios.</p>
-    <figure class="chart wide">
-      <div class="chart-head"><h4>Where 23 iconic Australian films were shot</h4><p class="how">Map: one symbol per film, placed where it was shot. Timeline below: the same films by release year and state. Symbol shape and colour = genre.</p></div>
-      <div class="vis" id="vis-locations"></div>
-      <p class="hint"><span class="tag">Drag</span> across the timeline to show only films from that era on the map. <span class="tag">Click</span> a genre in the legend to isolate it. <span class="tag">Hover</span> any symbol for the film's name. </p>
-    </figure>
-  </div>
-</section>
-
-<!-- ============ SCENE 8 ============ -->
-<section class="scene">
-  <div class="wrap">
-    <p class="slug">SCENE 8 — THE AUDIENCE</p>
+    <p class="slug">SCENE 7 — THE AUDIENCE</p>
     <h2>We make them here, but we rarely watch them</h2>
     <p class="lede">Here's the twist. Australia is busier than ever as a place to <em>make</em> films, but Australian films
       usually earn only <strong>2–5% of what we spend at the cinema</strong>. Big years come from one or two breakout hits:
@@ -225,9 +217,10 @@
       <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/co-production-program/co-production-trends/">Co-production trends</a> (as at 30 June 2026).</li>
       <li>Screen Australia, <a href="https://www.screenaustralia.gov.au/insights-and-trends/australian-films/box-office-share/">Domestic box office and share since 1977</a> and <a href="https://www.screenaustralia.gov.au/insights-and-trends/australian-films/top-australian-films/">Top 100 Australian feature films of all time</a>.</li>
       <li>Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/latest-release">National, state and territory population, March 2026</a>.</li>
+      <li>Boundaries: <a href="https://github.com/rowanhogan/australian-states">rowanhogan/australian-states</a> (simplified); world map: <a href="https://github.com/vega/vega-datasets">vega-datasets</a>.</li>
     </ul>
     <h3>About</h3>
-    <p>Created by <span class="todo-inline">Ewan Chong, October 2026, with Vega-Lite. Generative AI (Claude) was used to help draft the page structure.
+    <p>Created by <span class="todo-inline">[Your name]</span>, October 2026, with Vega-Lite. Generative AI (Claude) was used to help draft the page structure and code. <span class="todo-inline">[Edit this acknowledgement to match how you used AI.]</span></p>
   </div>
 </footer>
 

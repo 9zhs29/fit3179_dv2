@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Slope chart: each state's share of national drama spend, 2023/24 vs 2024/25",
   "width": 340,
-  "height": 320,
+  "height": 420,
   "data": {
     "url": "data/spend_by_state.csv",
     "format": {
@@ -36,8 +36,12 @@
       "as": "share"
     },
     {
-      "calculate": "datum.state + ' ' + format(datum.share, '.0%')",
+      "calculate": "{'NSW':'NSW','QLD':'QLD','VIC':'VIC','SA':'SA','WA':'WA','ACT/NT/TAS':'ACT, NT & Tas'}[datum.state] + ' ' + format(datum.share, '.0%')",
       "as": "label"
+    },
+    {
+      "calculate": "datum.year_start == 2024 ? {'QLD':0.348,'NSW':0.31,'VIC':0.272,'SA':0.06,'WA':0.036,'ACT/NT/TAS':0.012}[datum.state] : {'NSW':0.471,'VIC':0.198,'QLD':0.172,'ACT/NT/TAS':0.075,'SA':0.051,'WA':0.027}[datum.state]",
+      "as": "label_y"
     }
   ],
   "encoding": {
@@ -59,7 +63,13 @@
       "field": "share",
       "type": "quantitative",
       "title": null,
-      "axis": null
+      "axis": null,
+      "scale": {
+        "domain": [
+          0,
+          0.5
+        ]
+      }
     },
     "detail": {
       "field": "state_name"
@@ -133,42 +143,60 @@
     {
       "transform": [
         {
-          "filter": "datum.year_start == 2024 && datum.share > 0.05"
+          "filter": "datum.year_start == 2024"
         }
       ],
       "mark": {
         "type": "text",
         "align": "left",
         "dx": 10,
-        "fontSize": 12
+        "fontSize": 12,
+        "baseline": "middle"
       },
       "encoding": {
+        "y": {
+          "field": "label_y",
+          "type": "quantitative"
+        },
         "text": {
           "field": "label"
         },
         "color": {
-          "value": "#e8e4d8"
+          "condition": {
+            "test": "datum.state == 'QLD'",
+            "value": "#e0b45c"
+          },
+          "value": "#d8d4c8"
         }
       }
     },
     {
       "transform": [
         {
-          "filter": "datum.year_start == 2023 && datum.share > 0.1"
+          "filter": "datum.year_start == 2023"
         }
       ],
       "mark": {
         "type": "text",
         "align": "right",
         "dx": -10,
-        "fontSize": 12
+        "fontSize": 12,
+        "baseline": "middle"
       },
       "encoding": {
+        "y": {
+          "field": "label_y",
+          "type": "quantitative"
+        },
         "text": {
           "field": "label"
         },
         "color": {
-          "value": "#e8e4d8"
+          "condition": {
+            "test": "datum.state == 'QLD'",
+            "value": "#e0b45c"
+          },
+          "value": "#d8d4c8"
         }
       }
     }
